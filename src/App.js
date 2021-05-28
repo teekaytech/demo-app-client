@@ -1,4 +1,4 @@
-import './App.css';
+import SignUp from './components/SignUp';
 
 function App() {
   return (
@@ -6,6 +6,10 @@ function App() {
       <header className="App-header">
         <h1>Hello World</h1>
       </header>
+      <main>
+        <SignUp />
+      </main>
+      <footer />
     </div>
   );
 }
