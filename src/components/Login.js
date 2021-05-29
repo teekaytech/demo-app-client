@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <section className="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <section className="d-flex align-items-center min-vh-100 py-3 py-md-0 main">
       <div className="container">
         <div className="card login-card">
           <div className="row no-gutters">
