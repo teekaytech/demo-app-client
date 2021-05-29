@@ -1,9 +1,11 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginImg from '../assets/images/login.jpg';
 import Logo from '../assets/images/logo.svg';
 import '../assets/stylesheets/login.scss';
+import { users } from '../utils/custom';
 
 const Login = () => {
   const history = useHistory();
@@ -43,7 +45,9 @@ const Login = () => {
                   <img src={Logo} alt="logo" className="logo" />
                 </div>
                 <p className="login-card-description">Sign into your account</p>
-                <p className="text-danger">{ info && 'All fields are compulsory'}</p>
+                <p className="text-danger">
+                  {info && 'All fields are compulsory'}
+                </p>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label htmlFor="username" className="sr-only">
@@ -69,8 +73,10 @@ const Login = () => {
                       onChange={handleChange}
                     >
                       <option value="">select...</option>
-                      <option value="admin">Admin</option>
-                      <option value="others">Others</option>
+                      {users.map((user, id) => (
+                        <option value={user} key={id}>{user}</option>
+                      ))}
+                      <option value="Admin">Admin</option>
                     </select>
                   </div>
                   <button
