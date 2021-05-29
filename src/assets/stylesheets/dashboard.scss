@@ -311,7 +311,7 @@ main {
 /*  SIDEBAR STARTS HERE  */
 
 #sidebar {
-  background: #020509;
+  background: #191970;
   grid-area: sidebar;
   overflow-y: auto;
   padding: 20px;
@@ -349,7 +349,7 @@ main {
 }
 
 .sidebar__menu > h2 {
-  color: #3ea175;
+  color: #fff;
   font-size: 16px;
   margin-top: 15px;
   margin-bottom: 5px;
@@ -370,12 +370,12 @@ main {
 }
 
 .active_menu_link a {
-  color: #3ea175 !important;
+  color: #ffc100 !important;
 }
 
 .sidebar__link > a {
   text-decoration: none;
-  color: #a5aaad;
+  color: #fff;
   font-weight: 700;
 }
 
@@ -384,15 +384,9 @@ main {
   font-size: 18px;
 }
 
-.sidebar__logout {
-  margin-top: 20px;
-  padding: 10px;
-  color: #e65061;
-}
-
 .sidebar__logout > a {
   text-decoration: none;
-  color: #e65061;
+  color: #fff;
   font-weight: 700;
   text-transform: uppercase;
 }

@@ -1,34 +1,30 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import '../../assets/stylesheets/dashboard.scss';
-// import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import Avatar from '../../assets/images/avatar.svg';
 
 function Dashboard() {
-  // const location = useLocation();
-  // location.state.userData.username
-  // location.state.userData.userType
+  const location = useLocation();
+  const { username, userType } = location.state.userData;
+
   return (
     <div className="p-container">
       <nav className="navbar">
         <div className="nav_icon">
-          {' '}
-          { /* onClick="toggleSidebar()" */ }
           <i className="fa fa-bars" aria-hidden="true" />
         </div>
         <div className="navbar__left">
-          <a href="fewafe#">Subscribers</a>
-          <a href="ewafe#">Video Management</a>
-          <a className="active_link" href="efwafew#">Admin</a>
+          <a
+            className="active_link"
+            href="/dashboard"
+          >
+            {userType}
+          </a>
         </div>
         <div className="navbar__right">
-          <a href="weafe#">
-            <i className="fa fa-search" aria-hidden="true" />
-          </a>
-          <a href="wafew#">
-            <i className="fa fa-clock-o" aria-hidden="true" />
-          </a>
-          <a href="fwafea#">
-            <img width="30" src="assets/avatar.svg" alt="" />
-            {/* <i class="fa fa-user-circle-o" aria-hidden="true"></i> */}
+          <a href="">
+            <img width="30" src={Avatar} alt="" />
           </a>
         </div>
       </nav>
@@ -36,15 +32,17 @@ function Dashboard() {
       <main>
         <div className="main__container">
           {/* MAIN TITLE STARTS HERE */}
-
           <div className="main__title">
             <img src="assets/hello.svg" alt="" />
             <div className="main__greeting">
-              <h1>Hello Codersbite</h1>
-              <p>Welcome to your admin dashboard</p>
+              <h1>
+                Hello
+                {' '}
+                {username}
+              </h1>
+              <p>Welcome to your dashboard</p>
             </div>
           </div>
-
           {/* <!-- MAIN TITLE ENDS HERE -->
 
           <!-- MAIN CARDS STARTS HERE --> */}
@@ -144,8 +142,8 @@ function Dashboard() {
       <div id="sidebar">
         <div className="sidebar__title">
           <div className="sidebar__img">
-            <img src="assets/logo.png" alt="logo" />
-            <h1>Codersbite</h1>
+            <span>{'<>'}</span>
+            <h1>Demo App</h1>
           </div>
           <i
             onClick="closeSidebar()"
@@ -158,58 +156,24 @@ function Dashboard() {
         <div className="sidebar__menu">
           <div className="sidebar__link active_menu_link">
             <i className="fa fa-home" />
-            <a href="/safjiwo">Dashboard</a>
+            <a href="/dashboard">Dashboard</a>
           </div>
-          <h2>MNG</h2>
+          <h2>OTHER FEATURES</h2>
           <div className="sidebar__link">
             <i className="fa fa-user-secret" aria-hidden="true" />
-            <a href="#safwe">Admin Management</a>
+            <a href="#safwe">Feature 1</a>
           </div>
           <div className="sidebar__link">
             <i className="fa fa-building-o" />
-            <a href="#sfawe">Company Management</a>
+            <a href="#sfawe">Feature 2</a>
           </div>
           <div className="sidebar__link">
             <i className="fa fa-wrench" />
-            <a href="#eawef">Employee Management</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-archive" />
-            <a href="#eawf">Warehouse</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-handshake-o" />
-            <a href="#efawe">Contracts</a>
-          </div>
-          <h2>LEAVE</h2>
-          <div className="sidebar__link">
-            <i className="fa fa-question" />
-            <a href="efawf#">Requests</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-sign-out" />
-            <a href="efawf#">Leave Policy</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-calendar-check-o" />
-            <a href="eawfew#">Special Days</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-files-o" />
-            <a href="ewafef#">Apply for leave</a>
-          </div>
-          <h2>PAYROLL</h2>
-          <div className="sidebar__link">
-            <i className="fa fa-money" />
-            <a href="ewfrwe#">Payroll</a>
-          </div>
-          <div className="sidebar__link">
-            <i className="fa fa-briefcase" />
-            <a href="aweafee#">Paygrade</a>
+            <a href="#eawef">Feature 3</a>
           </div>
           <div className="sidebar__logout">
             <i className="fa fa-power-off" />
-            <a href="ewafwf#">Log out</a>
+            <Link to="/">Log out</Link>
           </div>
         </div>
       </div>
