@@ -1,9 +1,12 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import '../assets/stylesheets/dashboard.scss';
 import { useLocation } from 'react-router-dom';
-import { endpoints, fetchData } from '../utils/custom';
+import {
+  endpoints, fetchData, users, months,
+} from '../utils/custom';
 import ChartMap from './containers/Chart';
 
 function Admin() {
@@ -14,11 +17,14 @@ function Admin() {
   const [revenues, setRevenues] = useState([]);
   const [budgets, setBudgets] = useState([]);
   const [summary, setSummary] = useState([]);
+  const [filteredSummary, setFilteredSummary] = useState([]);
 
   const renderData = (data) => {
     if (loading || data.length <= 0) return 'loading...';
     return data;
   };
+
+  const formatDate = (dt) => new Date(dt).toDateString();
 
   useEffect(() => {
     try {
@@ -28,7 +34,7 @@ function Admin() {
           .then((response) => setRevenues(response))
           .catch((error) => setError(`${error.message}: Try again.`));
         await fetchData(endpoints.summary)
-          .then((response) => setSummary(response))
+          .then((response) => { setSummary(response); setFilteredSummary(response); })
           .catch((error) => setError(`${error.message}: Try again.`));
         await fetchData(endpoints.budgets)
           .then((response) => setBudgets(response))
@@ -59,6 +65,41 @@ function Admin() {
   const budget = parseInt(printTotal(summary, 'aop'), 10);
   const targetAchieved = revenue / budget;
   const commission = parseInt(printTotal(summary, 'commission'), 10);
+  const revenueChat = filteredSummary.length === 3
+    ? filteredSummary.map((cd) => parseInt(cd.revenue, 10))
+    : [];
+  const aopChat = filteredSummary.length === 3
+    ? filteredSummary.map((cd) => parseInt(cd.aop, 10))
+    : [];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'month') {
+      if (value === '') {
+        setFilteredSummary(summary);
+      } else {
+        setFilteredSummary(
+          summary.filter((smr) => new Date(smr.date).getMonth() === parseInt(value, 10)),
+        );
+      }
+    }
+    if (name === 'seller') {
+      if (value === '') {
+        setFilteredSummary(summary);
+      } else {
+        setFilteredSummary(summary.filter((smr) => smr.site_code === value));
+      }
+    }
+  };
+
+  const renderChat = revenueChat.length || aopChat.length
+    ? (
+      <div>
+        {revenueChat.length && <ChartMap data={revenueChat} title="Revenue" />}
+        {aopChat.length && <ChartMap data={aopChat} title="AOP" />}
+      </div>
+    )
+    : (<p>Filter by seller to show chart ...</p>);
 
   return (
     <main>
@@ -124,9 +165,8 @@ function Admin() {
           <div className="charts__left">
             <div className="charts__left__title">
               <div>
-                <h1>Reports Table</h1>
-                <p>...loading</p>
-                <ChartMap />
+                <h1>Seller Report Chart</h1>
+                {renderChat}
               </div>
               <i className="fa fa-usd" aria-hidden="true" />
             </div>
@@ -136,47 +176,76 @@ function Admin() {
           <div className="charts__right">
             <div className="">
               <div>
-                <h4>Other Stats Reports</h4>
-                <p>...some other information we can derive from the data</p>
+                <h4>Reports Summary</h4>
+                <div className="d-flex justify-content-between">
+                  <p>
+                    Filter by month:
+                    <select
+                      className="form-control d-inline-block"
+                      name="month"
+                      onChange={handleChange}
+                    >
+                      <option value="">All</option>
+                      {months.map((month, idx) => (
+                        <option key={idx} value={idx}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                  </p>
+                  <p>
+                    Filter by Seller:
+                    <select
+                      className="form-control d-inline-block"
+                      name="seller"
+                      onChange={handleChange}
+                    >
+                      <option value="">All</option>
+                      {users.map((user, idx) => (
+                        <option key={idx} value={user}>
+                          {user}
+                        </option>
+                      ))}
+                    </select>
+                  </p>
+                </div>
               </div>
               <i className="fa fa-usd" aria-hidden="true" />
               <div>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Site Code</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Revenue</th>
-                      <th scope="col">AOP</th>
-                      <th scope="col">Target</th>
-                      <th scope="col">Commission</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {summary.length ? (
-                      summary.map((sm) => (
+                {filteredSummary.length ? (
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Site Code</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Revenue</th>
+                        <th scope="col">AOP</th>
+                        <th scope="col">Target</th>
+                        <th scope="col">Commission</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredSummary.map((sm) => (
                         <tr key={sm.id}>
                           <th scope="row">{sm.site_code}</th>
-                          <td>{sm.date}</td>
+                          <td>{formatDate(sm.date)}</td>
                           <td>
                             {sm.revenue === null ? (0).toFixed(2) : sm.revenue}
                           </td>
                           <td>{sm.aop === null ? '0' : sm.aop}</td>
-                          <td>
-                            {sm.target === null ? '0.0%' : sm.target}
-                          </td>
+                          <td>{sm.target === null ? '0.0%' : sm.target}</td>
                           <td>
                             {sm.commission === null
                               ? (0).toFixed(2)
                               : sm.commission}
                           </td>
                         </tr>
-                      ))
-                    ) : (
-                      <p className="text-center">loading...</p>
-                    )}
-                  </tbody>
-                </table>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p className="text-center">loading...</p>
+                )}
               </div>
             </div>
           </div>

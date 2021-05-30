@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
-const users = ['LH', 'NA', 'NT'];
+const users = ['AI', 'LH', 'NA'];
+const months = ['january', 'february', 'march'];
 const endpoints = {
   sellers: 'sellers',
   revenues: 'revenues',
@@ -12,5 +13,5 @@ const fetchData = (page) => Axios.get(`${baseURL}/${page}`).then((response) => r
 const fetchUnit = (page, id) => Axios.get(`${baseURL}/${page}/${id}`).then((response) => response.data);
 
 export {
-  users, endpoints, fetchData, fetchUnit,
+  users, months, endpoints, fetchData, fetchUnit,
 };
