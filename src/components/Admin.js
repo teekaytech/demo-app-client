@@ -3,29 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/stylesheets/dashboard.scss';
 import {
-  endpoints, fetchData, users, months, commaSeparated,
+  endpoints, fetchData, users, months, commaSeparated, formatDate,
 } from '../utils/custom';
 import ChartMap from './containers/Chart';
 
 function Admin() {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-  const [revenues, setRevenues] = useState([]);
   const [budgets, setBudgets] = useState([]);
   const [summary, setSummary] = useState([]);
   const [filteredSummary, setFilteredSummary] = useState([]);
   const [user, setUser] = useState('');
-
-  const formatDate = (dt) => new Date(dt).toDateString();
 
   useEffect(() => {
     try {
       const obj = JSON.parse(localStorage.getItem('userData'));
       setUsername(obj.name);
       (async () => {
-        await fetchData(endpoints.revenues)
-          .then((response) => setRevenues(response))
-          .catch((error) => setError(`${error.message}: Try again.`));
         await fetchData(endpoints.summary)
           .then((response) => { setSummary(response); setFilteredSummary(response); })
           .catch((error) => setError(`${error.message}: Try again.`));
@@ -280,7 +274,6 @@ function Admin() {
           </div>
         </div>
       </div>
-      {error}
     </main>
   );
 }
