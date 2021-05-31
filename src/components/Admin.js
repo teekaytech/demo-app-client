@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/stylesheets/dashboard.scss';
 import { useLocation } from 'react-router-dom';
 import {
-  endpoints, fetchData, users, months,
+  endpoints, fetchData, users, months, commaSeparated,
 } from '../utils/custom';
 import ChartMap from './containers/Chart';
 
@@ -18,6 +18,7 @@ function Admin() {
   const [budgets, setBudgets] = useState([]);
   const [summary, setSummary] = useState([]);
   const [filteredSummary, setFilteredSummary] = useState([]);
+  const [user, setUser] = useState('');
 
   const renderData = (data) => {
     if (loading || data.length <= 0) return 'loading...';
@@ -68,9 +69,31 @@ function Admin() {
   const revenueChat = filteredSummary.length === 3
     ? filteredSummary.map((cd) => parseInt(cd.revenue, 10))
     : [];
-  const aopChat = filteredSummary.length === 3
-    ? filteredSummary.map((cd) => parseInt(cd.aop, 10))
+  const commissionChat = filteredSummary.length === 3
+    ? filteredSummary.map((cd) => parseInt(cd.commission, 10))
     : [];
+
+  const commissionByMonth = (() => {
+    let one = 0;
+    let two = 0;
+    let three = 0;
+    summary.forEach((sm) => {
+      switch (new Date(sm.date).getMonth()) {
+        case 0:
+          one += sm.commission && parseInt(sm.commission, 10);
+          break;
+        case 1:
+          two += sm.commission && parseInt(sm.commission, 10);
+          break;
+        case 2:
+          three += sm.commission && parseInt(sm.commission, 10);
+          break;
+        default:
+          break;
+      }
+    });
+    return [one, two, three];
+  })();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,19 +110,24 @@ function Admin() {
       if (value === '') {
         setFilteredSummary(summary);
       } else {
+        setUser(value);
         setFilteredSummary(summary.filter((smr) => smr.site_code === value));
       }
     }
   };
 
-  const renderChat = revenueChat.length || aopChat.length
-    ? (
-      <div>
-        {revenueChat.length && <ChartMap data={revenueChat} title="Revenue" />}
-        {aopChat.length && <ChartMap data={aopChat} title="AOP" />}
-      </div>
-    )
-    : (<p>Filter by seller to show chart ...</p>);
+  const renderChat = revenueChat.length || commissionChat.length ? (
+    <div>
+      {commissionChat.length && (
+      <ChartMap data={commissionChat} title={`${user} Commission`} />
+      )}
+      {revenueChat.length && (
+      <ChartMap data={revenueChat} title={`${user} Revenue`} />
+      )}
+    </div>
+  ) : (
+    <ChartMap data={commissionByMonth} title="Overall Comission" />
+  );
 
   return (
     <main>
@@ -124,7 +152,9 @@ function Admin() {
             />
             <div className="card_inner">
               <h2 className="text-primary-p">Revenue KPI</h2>
-              <span className="font-bold text-title">{revenue}</span>
+              <span className="font-bold text-title">
+                {commaSeparated(revenue)}
+              </span>
             </div>
           </div>
 
@@ -132,7 +162,9 @@ function Admin() {
             <i className="fa fa-calendar fa-2x text-red" aria-hidden="true" />
             <div className="card_inner">
               <p className="text-primary-p">Budget KPI</p>
-              <span className="font-bold text-title">{budget}</span>
+              <span className="font-bold text-title">
+                {commaSeparated(budget)}
+              </span>
             </div>
           </div>
 
@@ -156,7 +188,9 @@ function Admin() {
             />
             <div className="card_inner">
               <p className="text-primary-p">Commission</p>
-              <span className="font-bold text-title">{commission}</span>
+              <span className="font-bold text-title">
+                {commaSeparated(commission)}
+              </span>
             </div>
           </div>
         </div>
@@ -165,10 +199,9 @@ function Admin() {
           <div className="charts__left">
             <div className="charts__left__title">
               <div>
-                <h1>Seller Report Chart</h1>
+                <h1>Sellers Report Chart</h1>
                 {renderChat}
               </div>
-              <i className="fa fa-usd" aria-hidden="true" />
             </div>
             <div id="apex1" />
           </div>
@@ -230,14 +263,18 @@ function Admin() {
                           <th scope="row">{sm.site_code}</th>
                           <td>{formatDate(sm.date)}</td>
                           <td>
-                            {sm.revenue === null ? (0).toFixed(2) : sm.revenue}
+                            {sm.revenue === null
+                              ? (0).toFixed(2)
+                              : commaSeparated(sm.revenue)}
                           </td>
-                          <td>{sm.aop === null ? '0' : sm.aop}</td>
+                          <td>
+                            {sm.aop === null ? '0' : commaSeparated(sm.aop)}
+                          </td>
                           <td>{sm.target === null ? '0.0%' : sm.target}</td>
                           <td>
                             {sm.commission === null
                               ? (0).toFixed(2)
-                              : sm.commission}
+                              : commaSeparated(sm.commission)}
                           </td>
                         </tr>
                       ))}
