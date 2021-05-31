@@ -1,9 +1,14 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '../../assets/images/avatar.svg';
 
-function Navbar({ userType }) {
+function Navbar() {
+  const [userType, setUserType] = useState('');
+  useEffect(() => {
+    const obj = JSON.parse(localStorage.getItem('userData'));
+    setUserType(obj.type);
+  }, []);
+
   return (
     <nav className="navbar">
       <div className="nav_icon">

@@ -1,35 +1,27 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import '../assets/stylesheets/dashboard.scss';
-import { useLocation } from 'react-router-dom';
 import {
   endpoints, fetchData, users, months, commaSeparated,
 } from '../utils/custom';
 import ChartMap from './containers/Chart';
 
 function Admin() {
-  const location = useLocation();
-  const { username } = location.state.userData;
+  const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const [revenues, setRevenues] = useState([]);
   const [budgets, setBudgets] = useState([]);
   const [summary, setSummary] = useState([]);
   const [filteredSummary, setFilteredSummary] = useState([]);
   const [user, setUser] = useState('');
 
-  const renderData = (data) => {
-    if (loading || data.length <= 0) return 'loading...';
-    return data;
-  };
-
   const formatDate = (dt) => new Date(dt).toDateString();
 
   useEffect(() => {
     try {
-      setLoading(true);
+      const obj = JSON.parse(localStorage.getItem('userData'));
+      setUsername(obj.name);
       (async () => {
         await fetchData(endpoints.revenues)
           .then((response) => setRevenues(response))
@@ -40,7 +32,6 @@ function Admin() {
         await fetchData(endpoints.budgets)
           .then((response) => setBudgets(response))
           .catch((error) => setError(`${error.message}: Try again.`));
-        setLoading(false);
       })();
     } catch (error) {
       setError(`Something went wrong: ${error}`);
@@ -129,6 +120,7 @@ function Admin() {
     <ChartMap data={commissionByMonth} title="Overall Comission" />
   );
 
+  if (error.length > 0) return (<main className="text-center m-5">{error}</main>);
   return (
     <main>
       <div className="main__container">
@@ -138,7 +130,7 @@ function Admin() {
             <h1>
               Hello
               {' '}
-              {renderData(username)}
+              {username}
             </h1>
             <p>Welcome to your dashboard</p>
           </div>

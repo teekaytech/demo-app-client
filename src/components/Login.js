@@ -24,10 +24,8 @@ const Login = () => {
     e.preventDefault();
     const { username, userType } = loginDetails;
     if (userType.length > 0 && username.length > '') {
-      history.push({
-        pathname: '/dashboard',
-        state: { userData: loginDetails },
-      });
+      localStorage.setItem('userData', JSON.stringify({ name: username, type: userType }));
+      history.push('/dashboard');
     } else setInfo(true);
   };
 

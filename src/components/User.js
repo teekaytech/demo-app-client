@@ -1,11 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import '../assets/stylesheets/dashboard.scss';
 
 function User() {
-  const location = useLocation();
-  const { username } = location.state.userData;
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const obj = JSON.parse(localStorage.getItem('userData'));
+    setUsername(obj.name);
+  }, []);
+
   return (
     <main>
       <div className="main__container">
