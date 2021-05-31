@@ -4,11 +4,12 @@ import '../assets/stylesheets/dashboard.scss';
 import {
   endpoints,
   fetchData,
-  users,
   months,
   commaSeparated,
   formatDate,
-  printTotal, commissionByMonth,
+  printTotal,
+  commissionByMonth,
+  users,
 } from '../utils/custom';
 import ChartMap from './containers/Chart';
 
@@ -18,6 +19,7 @@ function Admin() {
   const [summary, setSummary] = useState([]);
   const [filteredSummary, setFilteredSummary] = useState([]);
   const [user, setUser] = useState('');
+  const [sellers, setSellers] = useState([]);
 
   useEffect(() => {
     try {
@@ -25,7 +27,11 @@ function Admin() {
       setUsername(obj.name);
       (async () => {
         await fetchData(endpoints.summary)
-          .then((response) => { setSummary(response); setFilteredSummary(response); })
+          .then((response) => {
+            setSummary(response);
+            setFilteredSummary(response);
+            setSellers(users(response, 'site_code'));
+          })
           .catch((error) => setError(`${error.message}: Try again.`));
       })();
     } catch (error) {
@@ -185,7 +191,7 @@ function Admin() {
                       onChange={handleChange}
                     >
                       <option value="">All</option>
-                      {users.map((user, idx) => (
+                      {sellers.map((user, idx) => (
                         <option key={idx} value={user}>
                           {user}
                         </option>

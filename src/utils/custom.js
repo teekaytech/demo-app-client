@@ -1,6 +1,5 @@
 import Axios from 'axios';
 
-const users = ['AI', 'LH', 'NA'];
 const months = ['january', 'february', 'march'];
 const endpoints = {
   sellers: 'sellers',
@@ -49,6 +48,11 @@ const commissionByMonth = (dataObj) => {
     }
   });
   return [one, two, three];
+};
+
+const users = (arr, col) => {
+  const marr = arr.map((sm) => sm[col]);
+  return [...new Set(marr)];
 };
 
 export {

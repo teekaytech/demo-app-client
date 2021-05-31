@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import Navbar from './containers/Navbar';
 import Sidebar from './Sidebar';
 import {
   fetchData,
   endpoints,
-  formatDate,
-  commaSeparated,
+  formatDate, users,
 } from '../utils/custom';
 import Filter from './Filter';
 
@@ -15,6 +13,7 @@ const Revenue = () => {
   const [revenues, setRevenues] = useState([]);
   const [filteredRev, setFilteredRev] = useState([]);
   const [error, setError] = useState('');
+  const [sellers, setSellers] = useState([]);
 
   useEffect(() => {
     try {
@@ -22,7 +21,11 @@ const Revenue = () => {
       setUser(obj);
       (async () => {
         await fetchData(endpoints.revenues)
-          .then((response) => { setRevenues(response); setFilteredRev(response); })
+          .then((response) => {
+            setRevenues(response);
+            setFilteredRev(response);
+            setSellers(users(response, 'site_code'));
+          })
           .catch((error) => setError(`${error.message}: Try again.`));
       })();
     } catch (error) {
@@ -73,7 +76,7 @@ const Revenue = () => {
             </div>
             <div className="bg-white p-3">
               <h5 className="text-center my-3">All Sellers Revenue</h5>
-              <Filter handleChange={handleChange} />
+              <Filter handleChange={handleChange} data={sellers} />
               {filteredRev.length ? (
                 <table className="table">
                   <thead>

@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import Navbar from './containers/Navbar';
 import Sidebar from './Sidebar';
 import {
   fetchData,
   endpoints,
-  formatDate,
-  commaSeparated,
+  formatDate, users,
 } from '../utils/custom';
 import Filter from './Filter';
 
@@ -32,6 +30,8 @@ const Budget = () => {
       setError(`Something went wrong: ${error}`);
     }
   }, []);
+
+  const sellers = users(budgets, 'account');
 
   const handleChange = (e) => {
     const { name, value } = e;
@@ -76,7 +76,7 @@ const Budget = () => {
             </div>
             <div className="bg-white p-3">
               <h5 className="text-center my-3">All Sellers Budgets</h5>
-              <Filter handleChange={handleChange} />
+              <Filter handleChange={handleChange} data={sellers} />
               {filteredBud.length ? (
                 <table className="table">
                   <thead>

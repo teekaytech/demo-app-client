@@ -1,19 +1,35 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginImg from '../assets/images/login.jpg';
 import Logo from '../assets/images/logo.svg';
 import '../assets/stylesheets/login.scss';
-import { users } from '../utils/custom';
+import { fetchData, endpoints, users } from '../utils/custom';
 
 const Login = () => {
   const history = useHistory();
   const [info, setInfo] = useState(false);
+  const [sellers, setSellers] = useState([]);
+  const [error, setError] = useState('');
   const [loginDetails, setLoginDetails] = useState({
     username: '',
     userType: '',
   });
+
+  useEffect(() => {
+    (async () => {
+      await fetchData(endpoints.summary)
+        .then((response) => {
+          setSellers(users(response, 'site_code'));
+        })
+        .catch((error) => setError(`${error.message}: Try again.`));
+    })();
+    return () => {
+      setSellers([]);
+      setError('');
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +45,7 @@ const Login = () => {
     } else setInfo(true);
   };
 
+  if (error.length) return (<p className="text-center m-3">{error}</p>);
   return (
     <section className="d-flex align-items-center min-vh-100 py-3 py-md-0 main">
       <div className="container">
@@ -71,8 +88,10 @@ const Login = () => {
                       onChange={handleChange}
                     >
                       <option value="">select...</option>
-                      {users.map((user, id) => (
-                        <option value={user} key={id}>{user}</option>
+                      {sellers.map((user, id) => (
+                        <option value={user} key={id}>
+                          {user}
+                        </option>
                       ))}
                       <option value="Admin">Admin</option>
                     </select>

@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import { months, users } from '../utils/custom';
+import { months } from '../utils/custom';
 
-const Filter = ({ handleChange }) => {
+const Filter = ({ handleChange, data }) => {
   const lChange = (e) => {
     handleChange({ name: e.target.name, value: e.target.value });
   };
@@ -32,7 +32,7 @@ const Filter = ({ handleChange }) => {
           onChange={lChange}
         >
           <option value="">All</option>
-          {users.map((user, idx) => (
+          {data.map((user, idx) => (
             <option key={idx} value={user}>
               {user}
             </option>

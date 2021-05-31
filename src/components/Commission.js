@@ -1,19 +1,28 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import Navbar from './containers/Navbar';
 import Sidebar from './Sidebar';
+import { fetchData, endpoints, users } from '../utils/custom';
 import '../assets/stylesheets/comission.scss';
 
 const Commission = () => {
   const [user, setUser] = useState({});
   const [error, setError] = useState('');
+  const [sellers, setSellers] = useState([]);
 
   useEffect(() => {
     try {
       const obj = JSON.parse(localStorage.getItem('userData'));
       setUser(obj);
+      (async () => {
+        await fetchData(endpoints.summary)
+          .then((response) => {
+            setSellers(users(response, 'site_code'));
+          })
+          .catch((error) => setError(`${error.message}: Try again.`));
+      })();
     } catch (error) {
       setError(`Something went wrong: ${error}`);
     }
@@ -93,15 +102,19 @@ const Commission = () => {
                         >
                           <form>
                             <div className="form-group">
-                              <label htmlFor="exampleInputEmail1">
-                                Seller Name
-                              </label>
-                              <input
-                                type="text"
+                              <label htmlFor="seller">Seller Name</label>
+                              <select
                                 className="form-control"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                              />
+                                name="seller"
+                                id="seller"
+                              >
+                                <option value="">All</option>
+                                {sellers.map((user, idx) => (
+                                  <option key={idx} value={user}>
+                                    {user}
+                                  </option>
+                                ))}
+                              </select>
                             </div>
                             <div className="form-group">
                               <label htmlFor="exampleInputPassword1">
@@ -127,15 +140,19 @@ const Commission = () => {
                         >
                           <form>
                             <div className="form-group">
-                              <label htmlFor="exampleInputEmail1">
-                                Salesman Name
-                              </label>
-                              <input
-                                type="text"
+                              <label htmlFor="salesman">Salesman Name</label>
+                              <select
                                 className="form-control"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                              />
+                                name="seller"
+                                id="salesman"
+                              >
+                                <option value="">All</option>
+                                {sellers.map((user, idx) => (
+                                  <option key={idx} value={user}>
+                                    {user}
+                                  </option>
+                                ))}
+                              </select>
                             </div>
                             <div className="form-group">
                               <label htmlFor="exampleInputEmail2">Salary</label>
@@ -170,6 +187,21 @@ const Commission = () => {
                           aria-labelledby="nav-contact-tab"
                         >
                           <form>
+                            <div className="form-group">
+                              <label htmlFor="username">Seller name</label>
+                              <select
+                                className="form-control"
+                                name="seller"
+                                id="username"
+                              >
+                                <option value="">All</option>
+                                {sellers.map((user, idx) => (
+                                  <option key={idx} value={user}>
+                                    {user}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
                             <div className="row">
                               <div className="col">
                                 <input
