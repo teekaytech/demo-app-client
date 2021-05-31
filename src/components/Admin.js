@@ -8,7 +8,7 @@ import {
   months,
   commaSeparated,
   formatDate,
-  printTotal,
+  printTotal, commissionByMonth,
 } from '../utils/custom';
 import ChartMap from './containers/Chart';
 
@@ -43,28 +43,7 @@ function Admin() {
   const commissionChat = filteredSummary.length === 3
     ? filteredSummary.map((cd) => parseInt(cd.commission, 10))
     : [];
-
-  const commissionByMonth = (() => {
-    let one = 0;
-    let two = 0;
-    let three = 0;
-    summary.forEach((sm) => {
-      switch (new Date(sm.date).getMonth()) {
-        case 0:
-          one += sm.commission && parseInt(sm.commission, 10);
-          break;
-        case 1:
-          two += sm.commission && parseInt(sm.commission, 10);
-          break;
-        case 2:
-          three += sm.commission && parseInt(sm.commission, 10);
-          break;
-        default:
-          break;
-      }
-    });
-    return [one, two, three];
-  })();
+  const commByMonth = commissionByMonth(summary);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -97,7 +76,7 @@ function Admin() {
       )}
     </div>
   ) : (
-    <ChartMap data={commissionByMonth} title="Overall Comission" />
+    <ChartMap data={commByMonth} title="Overall Comission" />
   );
 
   if (error.length > 0) return (<main className="text-center m-5">{error}</main>);

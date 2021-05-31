@@ -29,6 +29,36 @@ const printTotal = (datalist, col) => {
   return result;
 };
 
+const commissionByMonth = (dataObj) => {
+  let one = 0;
+  let two = 0;
+  let three = 0;
+  dataObj.forEach((sm) => {
+    switch (new Date(sm.date).getMonth()) {
+      case 0:
+        one += sm.commission && parseInt(sm.commission, 10);
+        break;
+      case 1:
+        two += sm.commission && parseInt(sm.commission, 10);
+        break;
+      case 2:
+        three += sm.commission && parseInt(sm.commission, 10);
+        break;
+      default:
+        break;
+    }
+  });
+  return [one, two, three];
+};
+
 export {
-  users, months, endpoints, fetchData, fetchUnit, commaSeparated, formatDate, printTotal,
+  users,
+  months,
+  endpoints,
+  fetchData,
+  fetchUnit,
+  commaSeparated,
+  formatDate,
+  printTotal,
+  commissionByMonth,
 };

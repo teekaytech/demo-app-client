@@ -13,6 +13,7 @@ const Sidebar = () => {
 
   const handleClick = () => {
     localStorage.removeItem('userData');
+    window.location.reload();
   };
 
   return (
