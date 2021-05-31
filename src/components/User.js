@@ -1,15 +1,40 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
 import '../assets/stylesheets/dashboard.scss';
+import { fetchUnit, endpoints } from '../utils/custom';
 
-function User() {
-  const [username, setUsername] = useState('');
+const User = () => {
+  const [usr, setUsr] = useState({});
+  const [err, setErr] = useState('');
+  const [result, setResult] = useState([]);
 
   useEffect(() => {
-    const obj = JSON.parse(localStorage.getItem('userData'));
-    setUsername(obj.name);
+    try {
+      const obj = JSON.parse(localStorage.getItem('userData'));
+      setUsr(obj);
+    } catch (error) { setErr(`Something went wrong: ${error}`); }
   }, []);
 
+  useEffect(() => {
+    try {
+      (async () => {
+        await fetchUnit(endpoints.summary, usr.type)
+          .then((res) => setResult(res))
+          .then((error) => setErr(error));
+      })();
+    } catch (error) {
+      setErr(`Something went wrong: ${error}`);
+    }
+    return () => {
+      setResult([]);
+      setErr([]);
+    };
+  }, []);
+
+  // const rev = parseInt(printTotal(result, 'revenue'), 10);
+  // const bud = parseInt(printTotal(result, 'aop'), 10);
+  if (result.length) console.log(result);
+  if (err && err.length) return <main className="text-center m-5">{err}</main>;
   return (
     <main>
       <div className="main__container">
@@ -19,7 +44,7 @@ function User() {
             <h1>
               Hello
               {' '}
-              {username}
+              {usr.name}
             </h1>
             <p>Welcome to your dashboard</p>
           </div>
@@ -65,7 +90,7 @@ function User() {
             />
             <div className="card_inner">
               <p className="text-primary-p">Commission Rate</p>
-              <span className="font-bold text-title">...10</span>
+              <span className="font-bold text-title">{}</span>
             </div>
           </div>
         </div>
@@ -117,6 +142,6 @@ function User() {
       </div>
     </main>
   );
-}
+};
 
 export default User;

@@ -1,16 +1,20 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import '../assets/stylesheets/dashboard.scss';
 import {
-  endpoints, fetchData, users, months, commaSeparated, formatDate,
+  endpoints,
+  fetchData,
+  users,
+  months,
+  commaSeparated,
+  formatDate,
+  printTotal,
 } from '../utils/custom';
 import ChartMap from './containers/Chart';
 
 function Admin() {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-  const [budgets, setBudgets] = useState([]);
   const [summary, setSummary] = useState([]);
   const [filteredSummary, setFilteredSummary] = useState([]);
   const [user, setUser] = useState('');
@@ -23,29 +27,11 @@ function Admin() {
         await fetchData(endpoints.summary)
           .then((response) => { setSummary(response); setFilteredSummary(response); })
           .catch((error) => setError(`${error.message}: Try again.`));
-        await fetchData(endpoints.budgets)
-          .then((response) => setBudgets(response))
-          .catch((error) => setError(`${error.message}: Try again.`));
       })();
     } catch (error) {
       setError(`Something went wrong: ${error}`);
     }
   }, []);
-
-  const summation = (data, col) => {
-    let sum = 0;
-    data.forEach((element) => {
-      const value = element[col] === null ? 0 : parseFloat(element[col]);
-      sum += value;
-    });
-    return sum;
-  };
-
-  const printTotal = (datalist, col) => {
-    let result = 0;
-    if (datalist.length) result = summation(datalist, col);
-    return result;
-  };
 
   const revenue = parseInt(printTotal(summary, 'revenue'), 10);
   const budget = parseInt(printTotal(summary, 'aop'), 10);
