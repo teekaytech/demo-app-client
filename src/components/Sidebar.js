@@ -24,7 +24,7 @@ const Sidebar = () => {
         </div>
         <h2>OTHER FEATURES</h2>
         <div className="sidebar__link">
-          <Link to={{ pathname: '/revenue', state: { data: 'helo' } }}>Revenue</Link>
+          <Link to="/revenue">Revenue</Link>
         </div>
         <div className="sidebar__link">
           <Link to="/budget">Budget</Link>
