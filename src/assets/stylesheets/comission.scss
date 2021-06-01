@@ -2,13 +2,16 @@
   padding: 10%;
   margin-top: -8%;
 }
+
 .project-tab #tabs {
   background: #007b5e;
   color: #eee;
 }
+
 .project-tab #tabs h6.section-title {
   color: #eee;
 }
+
 .project-tab #tabs .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
   color: #0062cc;
@@ -18,6 +21,7 @@
   font-size: 16px;
   font-weight: bold;
 }
+
 .project-tab .nav-link {
   border: 1px solid transparent;
   border-top-left-radius: 0.25rem;
@@ -26,13 +30,16 @@
   font-size: 16px;
   font-weight: 600;
 }
+
 .project-tab .nav-link:hover {
   border: none;
 }
+
 .project-tab thead {
   background: #f3f3f3;
   color: #333;
 }
+
 .project-tab a {
   text-decoration: none;
   color: #333;

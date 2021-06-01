@@ -68,11 +68,12 @@ body {
   grid-template-areas:
     'sidebar nav nav nav'
     'sidebar main main main';
+
   /* grid-gap: 0.2rem; */
 }
 
 .navbar {
-  background: #ffffff;
+  background: #fff;
   grid-area: nav;
   height: 60px;
   display: flex;
@@ -120,8 +121,8 @@ body {
   color: #a5aaad;
   font-size: 16px;
   border-radius: 50px;
-  background: #ffffff;
-  box-shadow: 2px 2px 5px #d9d9d9, -2px -2px 5px #ffffff;
+  background: #fff;
+  box-shadow: 2px 2px 5px #d9d9d9, -2px -2px 5px #fff;
   padding: 7px;
 }
 
@@ -172,8 +173,8 @@ main {
   height: 70px;
   padding: 25px;
   border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+  background: #fff;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #fff;
 }
 
 .card_inner {
@@ -196,8 +197,8 @@ main {
 .charts__left {
   padding: 25px;
   border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+  background: #fff;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #fff;
 }
 
 .charts__left__title {
@@ -219,21 +220,21 @@ main {
 }
 
 .charts__left__title > i {
-  color: #ffffff;
+  color: #fff;
   font-size: 20px;
   background: #ffc100;
-  border-radius: 200px 0px 200px 200px;
-  -moz-border-radius: 200px 0px 200px 200px;
-  -webkit-border-radius: 200px 0px 200px 200px;
-  border: 0px solid #000000;
+  border-radius: 200px 0 200px 200px;
+  -moz-border-radius: 200px 0 200px 200px;
+  -webkit-border-radius: 200px 0 200px 200px;
+  border: 0 solid #000;
   padding: 15px;
 }
 
 .charts__right {
   padding: 25px;
   border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+  background: #fff;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #fff;
 }
 
 .charts__right__title {
@@ -255,13 +256,13 @@ main {
 }
 
 .charts__right__title > i {
-  color: #ffffff;
+  color: #fff;
   font-size: 20px;
   background: #39447a;
-  border-radius: 200px 0px 200px 200px;
-  -moz-border-radius: 200px 0px 200px 200px;
-  -webkit-border-radius: 200px 0px 200px 200px;
-  border: 0px solid #000000;
+  border-radius: 200px 0 200px 200px;
+  -moz-border-radius: 200px 0 200px 200px;
+  -webkit-border-radius: 200px 0 200px 200px;
+  border: 0 solid #000;
   padding: 15px;
 }
 
@@ -325,6 +326,7 @@ main {
   align-items: center;
   color: #f3f4f6;
   margin-bottom: 30px;
+
   /* color: #E85B6B; */
 }
 
