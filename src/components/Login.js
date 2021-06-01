@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginImg from '../assets/images/login.jpg';
-import Logo from '../assets/images/logo.svg';
+import Logo from '../assets/images/logo.png';
 import '../assets/stylesheets/login.scss';
 import { fetchData, endpoints, users } from '../utils/custom';
 
@@ -56,10 +56,11 @@ const Login = () => {
             </div>
             <div className="col-md-7">
               <div className="card-body">
-                <div className="brand-wrapper">
+                <div className="brand-wrapper d-flex mb-5 align-items-center">
                   <img src={Logo} alt="logo" className="logo" />
+                  <h3 className="mt-3 ml-3">Sales Commission Automation</h3>
                 </div>
-                <p className="login-card-description">Sign into your account</p>
+                <p className="login-card-description text-italic">Sign into your account</p>
                 <p className="text-danger">
                   {info && 'All fields are compulsory'}
                 </p>
