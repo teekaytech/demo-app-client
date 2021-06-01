@@ -108,7 +108,7 @@ const Commission = () => {
                                 name="seller"
                                 id="seller"
                               >
-                                <option value="">All</option>
+                                <option value="">select...</option>
                                 {sellers.map((user, idx) => (
                                   <option key={idx} value={user}>
                                     {user}
@@ -146,7 +146,7 @@ const Commission = () => {
                                 name="seller"
                                 id="salesman"
                               >
-                                <option value="">All</option>
+                                <option value="">select ...</option>
                                 {sellers.map((user, idx) => (
                                   <option key={idx} value={user}>
                                     {user}
@@ -194,7 +194,7 @@ const Commission = () => {
                                 name="seller"
                                 id="username"
                               >
-                                <option value="">All</option>
+                                <option value="">select ...</option>
                                 {sellers.map((user, idx) => (
                                   <option key={idx} value={user}>
                                     {user}
