@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+## Sales Commission Automation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> An app built to fetch sales commission records from an API, to render the summaries of the data.
 
-## Available Scripts
+<br><br><img src="./src/assets/images/screenshot.png"><br>
 
-In the project directory, you can run:
+## Built with
 
-### `yarn start`
+- React
+- SCSS (Bootstrap)
+- Linter (Stickler)
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/380c0f4d-1234-420f-b8a7-65c7d77e27f9/deploy-status)](https://app.netlify.com/sites/demo-analysis/deploys)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Live demo
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+[Live Demo Link](https://demo-analysis.netlify.app)
 
-### `yarn test`
+## Getting started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Setup
 
-### `yarn build`
+To setup this project on your development environment, follow the steps below:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- On the project GitHub page, navigate to the main page of the repository ([this page](https://github.com/teekaytech/demo-app-client)).
+- Under the repository name, locate and click on a green button named `Code`.
+- Copy the project URL as displayed (`https://github.com/teekaytech/demo-app-client.git`).
+- If you're running Windows Operating System, open your command prompt. On Linux, Open your terminal.
+- Change the current working directory to the location where you want the cloned directory to be made. Leave as it is if the current location is where you want the project to be.
+- Type git clone, and then paste the URL you copied in Step 3.
+  `$ git clone https://github.com/teekaytech/demo-app-client.git`
+- Press the `Enter` button. Your local copy will be created.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Note: you must have `npm`, `Node`, & `Git` installed on your PC to setup the app locally.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Starting the app
 
-### `yarn eject`
+Install packages with:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`npm install`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Start the application locally with:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`npm start`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The app should automatically open a local development server. If it does not, open `http://localhost:3000` on your browser.
 
-## Learn More
+## Author
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Taofeek Olalere**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Portfolio](https://taofeekolalere.me/)
+- [Twitter](https://twitter.com/ola_lere)
+- [LinkedIn](https://www.linkedin.com/in/olaleretaofeek/)
 
-### Code Splitting
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Contributions, issues and feature requests are welcome!
 
-### Analyzing the Bundle Size
+1.  Fork the Project [here](https://github.com/teekaytech/demo-app-client)
+2.  Open a Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Feel free to check the [issues page](https://github.com/teekaytech/demo-app-client/issues).
 
-### Making a Progressive Web App
+## Show your support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Give a :star: if you like this project!
